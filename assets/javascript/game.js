@@ -10,6 +10,7 @@ var wordList = [
     "Kawasaki",
     "KTM",
     "Suzuki",
+    "Triumph",
     "Victory",
     "Yamaha"
 ];
@@ -41,7 +42,39 @@ document.onkeyup = function(event) {
     }
 }
 // Functions
+// Setup and start gameboard
+function startGame(){
+    document.getElementById('messageBoard').textContent = "Press any letter key to start the game!";
+    document.getElementById('guessCount').textContent = gussesLeft;
+    document.getElementById('winCount').textContent = wins;
+    selectRandomWord(wordList);
+}
+// Select a word randomly from list
+function selectRandomWord(wordArray) {
+    var selectedWord = Math.floor(((Math.random()) * wordArray.length));
+    wordString = wordList[selectedWord].toLowerCase();
+    word2Array(wordString);
+    blankSpaces(wordLettersArray);
+    return wordString;
+};
+//Convert randomly selected word to array of letters
+function word2Array(motoBrand) {
+    wordLettersArray = motoBrand.split("");
+    return wordLettersArray;
+};
+// Put down placeholders for word on the gameboard
+function blankSpaces(lettersArray) {
+    for (i = 0; i < lettersArray.length; i++) {
+        hiddenArray.push("_");
+        fillSpaces (hiddenArray);
+    } 
+};
 // Check if input is a letter
+function isLetter(str){
+    str = str.toLowerCase();
+    return str.length === 1 && str.match(/[a-z]/i);
+}
+// Hold already gussed letters
 function writeGuess(keypress){
     if (lettersGussed.indexOf(keypress) !== -1){
         document.getElementById('messageBoard').textContent = "You already gussed that. Try again.";
@@ -52,43 +85,8 @@ function writeGuess(keypress){
         document.getElementById('lettersGuessed').textContent = gussedStr;
     }
 }
-function isLetter(str){
-    str = str.toLowerCase();
-    return str.length === 1 && str.match(/[a-z]/i);
-}
-function selectRandomWord(wordArray) {
-    var selectedWord = Math.floor(((Math.random()) * wordArray.length));
-    wordString = wordList[selectedWord].toLowerCase();
-    word2Array(wordString);
-    blankSpaces(wordLettersArray);
-    return wordString;
-};
-function word2Array(motoBrand) {
-    wordLettersArray = motoBrand.split("");
-    return wordLettersArray;
-};
-function blankSpaces(lettersArray) {
-    for (i = 0; i < lettersArray.length; i++) {
-        hiddenArray.push("_");
-        fillSpaces (hiddenArray);
-    }
-    
-};
+// Fill blank spaced with correctly gussed letters //Still need loop to fillin all spots letter appears 
 function fillSpaces(hiddenArray) {
     hiddenWord = hiddenArray.join(" ");
     document.getElementById('hiddenWord').textContent = hiddenWord;
 };
-function startGame(){
-    document.getElementById('messageBoard').textContent = "Press any letter key to start the game!";
-    document.getElementById('guessCount').textContent = gussesLeft;
-    document.getElementById('winCount').textContent = wins;
-
-    selectRandomWord(wordList);
-
-
-}
-
-
-console.log(wordString);
-console.log(wordLettersArray);
-console.log(hiddenWord);
