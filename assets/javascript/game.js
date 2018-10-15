@@ -36,10 +36,22 @@ document.onkeyup = function(event) {
         writeGuess(keypress);
     }
     if (wordLettersArray.indexOf(keypress) !== -1) {
-        var index = wordLettersArray.indexOf(keypress);
-        hiddenArray[index] = keypress;
-        fillSpaces(hiddenArray);
+        var index = "";
+        index = wordLettersArray.indexOf(keypress);
+        for (i = index; i < hiddenArray.length; i++) {
+            if (wordLettersArray[i] == keypress) {
+                hiddenArray[i] = keypress;
+                fillSpaces(hiddenArray);
+            }
+        } 
     }
+    else {
+
+        if (lettersGussed.indexOf(keypress) == -1) { //I am here! 
+            gussesLeft--;
+            document.getElementById('guessCount').textContent = gussesLeft;
+        }
+    } 
 }
 // Functions
 // Setup and start gameboard
@@ -80,12 +92,11 @@ function writeGuess(keypress){
         document.getElementById('messageBoard').textContent = "You already gussed that. Try again.";
         return;
     } else {
-        lettersGussed.push(keypress); //lettersGuessed
+        lettersGussed.push(keypress);
         var gussedStr = lettersGussed.join(", ")
         document.getElementById('lettersGuessed').textContent = gussedStr;
     }
 }
-// Fill blank spaced with correctly gussed letters //Still need loop to fillin all spots letter appears 
 function fillSpaces(hiddenArray) {
     hiddenWord = hiddenArray.join(" ");
     document.getElementById('hiddenWord').textContent = hiddenWord;
