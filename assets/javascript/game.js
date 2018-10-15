@@ -17,9 +17,12 @@ var lettersGussed = [];
 var keypress = "";
 var wordString = "";
 var wordLettersArray = [];
+var hiddenArray = [];
 var hiddenWord = "";
 
 // Where the magic happens
+startGame();
+console.log(wordString);
 document.onkeyup = function(event) { 
     keypress = event.key;
     if (!(isLetter(keypress))){
@@ -31,8 +34,11 @@ document.onkeyup = function(event) {
         document.getElementById('messageBoard').textContent = "Guess another letter.";
         writeGuess(keypress);
     }
-
-
+    if (wordLettersArray.indexOf(keypress) !== -1) {
+        var index = wordLettersArray.indexOf(keypress);
+        hiddenArray[index] = keypress;
+        fillSpaces(hiddenArray);
+    }
 }
 // Functions
 // Check if input is a letter
@@ -40,11 +46,10 @@ function writeGuess(keypress){
     if (lettersGussed.indexOf(keypress) !== -1){
         document.getElementById('messageBoard').textContent = "You already gussed that. Try again.";
         return;
-    } else if (1 == 1) {
+    } else {
         lettersGussed.push(keypress); //lettersGuessed
         var gussedStr = lettersGussed.join(", ")
         document.getElementById('lettersGuessed').textContent = gussedStr;
-        console.log("else if");
     }
 }
 function isLetter(str){
@@ -54,6 +59,8 @@ function isLetter(str){
 function selectRandomWord(wordArray) {
     var selectedWord = Math.floor(((Math.random()) * wordArray.length));
     wordString = wordList[selectedWord].toLowerCase();
+    word2Array(wordString);
+    blankSpaces(wordLettersArray);
     return wordString;
 };
 function word2Array(motoBrand) {
@@ -61,19 +68,27 @@ function word2Array(motoBrand) {
     return wordLettersArray;
 };
 function blankSpaces(lettersArray) {
-    var hiddenArray = [];
     for (i = 0; i < lettersArray.length; i++) {
-        hiddenArray.push("_")
-        console.log(hiddenArray);
+        hiddenArray.push("_");
+        fillSpaces (hiddenArray);
     }
+    
+};
+function fillSpaces(hiddenArray) {
     hiddenWord = hiddenArray.join(" ");
     document.getElementById('hiddenWord').textContent = hiddenWord;
 };
+function startGame(){
+    document.getElementById('messageBoard').textContent = "Press any letter key to start the game!";
+    document.getElementById('guessCount').textContent = gussesLeft;
+    document.getElementById('winCount').textContent = wins;
+
+    selectRandomWord(wordList);
 
 
-console.log(selectRandomWord(wordList));
+}
+
+
 console.log(wordString);
-console.log(word2Array(wordString));
 console.log(wordLettersArray);
-blankSpaces(wordLettersArray);
 console.log(hiddenWord);
