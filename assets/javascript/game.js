@@ -47,7 +47,7 @@ document.onkeyup = function(event) {
     }
     else {
 
-        if (lettersGussed.indexOf(keypress) == -1) { //I am here! 
+        if (lettersGussed.indexOf(keypress) == -1) { //I am here
             gussesLeft--;
             document.getElementById('guessCount').textContent = gussesLeft;
         }
