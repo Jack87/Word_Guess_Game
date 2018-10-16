@@ -32,8 +32,6 @@ document.onkeyup = function(event) {
         return;
     }
     else {
-        document.getElementById('messageBoard').textContent = "Guess another letter.";
-        writeGuess(keypress);
     }
     if (wordLettersArray.indexOf(keypress) !== -1) {
         var index = "";
@@ -41,18 +39,28 @@ document.onkeyup = function(event) {
         for (i = index; i < hiddenArray.length; i++) {
             if (wordLettersArray[i] == keypress) {
                 hiddenArray[i] = keypress;
-                fillSpaces(hiddenArray);
+                fillSpaces(hiddenArray); 
             }
-        } 
-    }
-    else {
-
-        if (lettersGussed.indexOf(keypress) == -1) { //I am here
+        }
+        if (countInArray(hiddenArray, keypress) > 1) {
+            document.getElementById('messageBoard').textContent = "Great you got that one! Guess another letter.";
+        } else if ((wordLettersArray[index] == hiddenArray[index]) && lettersGussed.indexOf(hiddenArray[index]) > -1) { //working on here
+            document.getElementById('messageBoard').textContent = "You already had that one! Guess another letter.";
+        } else {
+            document.getElementById('messageBoard').textContent = "Great you got that one! Guess another letter.";
+        }
+        writeGuess(keypress);
+    } else {
+        console.log(gussesLeft);
+        if ((lettersGussed.indexOf(keypress) == -1) && (gussesLeft > 0)) {
             gussesLeft--;
             document.getElementById('guessCount').textContent = gussesLeft;
+            document.getElementById('messageBoard').textContent = "Oops Missed that one! Guess another letter.";
+            writeGuess(keypress);
         }
     } 
 }
+
 // Functions
 // Setup and start gameboard
 function startGame(){
@@ -101,3 +109,13 @@ function fillSpaces(hiddenArray) {
     hiddenWord = hiddenArray.join(" ");
     document.getElementById('hiddenWord').textContent = hiddenWord;
 };
+// check if item shows up more than once
+function countInArray(array, letter) {
+    var count = 0;
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] === letter) {
+            count++;
+        }
+    }
+    return count;
+}
