@@ -57,6 +57,8 @@ document.onkeyup = function(event) {
             document.getElementById('guessCount').textContent = gussesLeft;
             document.getElementById('messageBoard').textContent = "Oops Missed that one! Guess another letter.";
             writeGuess(keypress);
+            console.log("this");
+
         }
     } 
 }
