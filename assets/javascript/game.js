@@ -112,7 +112,7 @@ function fillSpaces(hiddenArray) {
 // check if item shows up more than once
 function countInArray(array, letter) {
     var count = 0;
-    for (var i = 0; i < array.length; i++) {
+    for (var i = 0; i < array.length; i++) {localStorage
         if (array[i] === letter) {
             count++;
         }
