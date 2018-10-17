@@ -14,6 +14,30 @@ var wordList = [
     "Victory",
     "Yamaha"
 ];
+var sound = {
+    "wrong" : {
+      url : "assets/sounds/GotItWrong_MotoSkid.mp3"
+    },
+    "right" : {
+      url : "assets/sounds/GotItRight_MotoPass.mp3"
+    },
+    "start" : {
+      url: "assets/sounds/StartGame_MotoStart.mp3"
+    },
+    "winning" : {
+      url : "assets/sounds/WinGame_MotoRaceEnd.mp3"
+    },
+    "losing" : {
+      url : "assets/sounds/LoseGame_MotoCrashBurn.mp3"
+    }
+  };
+var boardState = {
+    notALetter: "That is not a letter. Try again.",
+    alreadyGussed: "You already had that one! Guess another letter.",
+    gotIt: "Great you got that one! Guess another letter.",
+    missedIt: "Oops Missed that one! Guess another letter.",
+    pressToStart: "Press any letter key to start the game!"
+};
 var lettersGussed = [];
 var keypress = "";
 var wordString = "";
@@ -21,8 +45,14 @@ var wordLettersArray = [];
 var hiddenArray = [];
 var hiddenWord = "";
 
+console.log(boardState.missedIt)
+function writeToScreen(boardState) {
+    docment.getElementById('messageBoard').textContent = boardState;
+};
+
 // Where the magic happens
 startGame();
+
 console.log(wordString);
 document.onkeyup = function(event) { 
     keypress = event.key;
@@ -70,6 +100,9 @@ function startGame(){
     document.getElementById('guessCount').textContent = gussesLeft;
     document.getElementById('winCount').textContent = wins;
     selectRandomWord(wordList);
+    playSound(sound.wrong.url);
+        // playSound("start");
+
 }
 // Select a word randomly from list
 function selectRandomWord(wordArray) {
@@ -120,4 +153,18 @@ function countInArray(array, letter) {
         }
     }
     return count;
-}
+};
+// Play game sounds
+function playSound(url){
+    var audio = document.createElement('audio');
+    audio.style.display = "none";
+    audio.src = url;
+    audio.autoplay = true;
+    console.log(audio)
+    // audio.play()
+    audio.onended = function(){
+      audio.remove() //Remove when played.
+    };
+    document.body.appendChild(audio);
+  }
+  console.log(sound.start.url);
