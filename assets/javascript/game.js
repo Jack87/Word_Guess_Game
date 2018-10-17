@@ -72,13 +72,13 @@ writeToScreen(boardState.pressToStart);
 // Functions for displaying content to user
 function writeToScreen(boardState) {
     document.getElementById('messageBoard').textContent = boardState;
-};
+}
 function writeGussesLeft(guess) {
     document.getElementById('guessCount').textContent = guessesLeft + "0%";
-};
+}
 function writeWins(win) {
     document.getElementById('winCount').textContent = wins;
-};
+}
 
 function nextGame() {
     writeToScreen(boardState.pressToGo);
@@ -86,7 +86,7 @@ function nextGame() {
     writeWins(wins);
     selectRandomWord(wordList);
     console.log(wordString);
-};
+}
 console.log("state active: " + state.active);
 document.onkeyup = function(event) { 
     keypress = event.key ;
@@ -106,10 +106,6 @@ document.onkeyup = function(event) {
         console.log(keypress);
         return;
     }
-    else {
-        1==1
-    };
-
     if (wordLettersArray.indexOf(keypress) !== -1) { // If letter exists in the wordLettersArray continue
         var index = "";
         index = wordLettersArray.indexOf(keypress);   // Find corresponding index for matching keypress
@@ -139,7 +135,7 @@ document.onkeyup = function(event) {
             writeGuess(keypress);
             console.log("this");
         }
-    };
+    }
 }
 
 // Functions
@@ -152,19 +148,19 @@ function selectRandomWord(wordArray) {
     word2Array(wordString);
     blankSpaces(wordLettersArray);
     return wordString;
-};
+}
 //Convert randomly selected word to array of letters
 function word2Array(motoBrand) {
     wordLettersArray = motoBrand.split("");
     return wordLettersArray;
-};
+}
 // Put down placeholders for word on the gameboard
 function blankSpaces(lettersArray) {
     for (i = 0; i < lettersArray.length; i++) {
         hiddenArray.push("_");
         fillSpaces (hiddenArray);
     } 
-};
+}
 // Check if input is a letter
 function isLetter(str){
     str = str.toLowerCase();
@@ -185,7 +181,7 @@ function writeGuess(keypress){
 function fillSpaces(hiddenArray) {
     hiddenWord = hiddenArray.join(" ");
     document.getElementById('hiddenWord').textContent = hiddenWord.toLocaleUpperCase();
-};
+}
 // check if item shows up more than once
 function countInArray(array, letter) {
     var count = 0;
@@ -196,7 +192,7 @@ function countInArray(array, letter) {
     }
     console.log("countInArray is: " + count );
     return count;
-};
+}
 // Play game sounds
 function playSound(src){
     var audio = document.createElement('audio');
