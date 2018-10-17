@@ -38,7 +38,10 @@ var sound = {
     },
     "repeat" : {
         src : "assets/sounds/RepeatLetter_MotoHorn.mp3"
-      }
+      },
+    "error" : {
+        src: "assets/sounds/Error_MotoHorn.mp3"
+    }
   };
 // Boardstate messages
 var boardState = {
@@ -79,7 +82,6 @@ function writeGussesLeft(guess) {
 function writeWins(win) {
     document.getElementById('winCount').textContent = wins;
 }
-
 function nextGame() {
     writeToScreen(boardState.pressToGo);
     writeGussesLeft(guessesLeft);
@@ -93,6 +95,7 @@ document.onkeyup = function(event) {
     // Checking user inputs and activating gameplay
     if (keypress != " " && (!(state.active))) { 
         writeToScreen(boardState.notSpacebar);
+        playSound(sound.error.src);
         return;
     } else if (!(state.active)) {
             state.active = true;
@@ -103,6 +106,7 @@ document.onkeyup = function(event) {
     } 
     else if (!(isLetter(keypress))){
         writeToScreen(boardState.notALetter);
+        playSound(sound.error.src);
         console.log(keypress);
         return;
     }
