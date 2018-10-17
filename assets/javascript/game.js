@@ -117,14 +117,12 @@ document.onkeyup = function(event) {
         }
         if (countInArray(hiddenArray, keypress) >= 1) { // If item hasn't been gussed before show got it message
             writeToScreen(boardState.gotIt);
-            playSound(sound.right.src);
-            writeGuess(keypress);
+            if ((writeGuess(keypress))) {
+                playSound(sound.right.src);
+            }
         } 
     }
-    else if ((wordLettersArray[index] == hiddenArray[index]) && lettersGussed.indexOf(hiddenArray[index]) > -1) { // If letter has been gussed before (right or wrong) show already gussed message
-        writeToScreen(boardState.alreadyGussed);
-        console.log("this is happening")
-    }
+
     else {
         console.log(guessesLeft);
         if ((lettersGussed.indexOf(keypress) == -1) && (guessesLeft > 0)) {
@@ -134,6 +132,10 @@ document.onkeyup = function(event) {
             playSound(sound.wrong.src);
             writeGuess(keypress);
             console.log("this");
+        }
+        else if ((wordLettersArray[index] == hiddenArray[index]) && lettersGussed.indexOf(hiddenArray[index]) > -1) { // If letter has been gussed before (right or wrong) show already gussed message
+            writeToScreen(boardState.alreadyGussed);
+            console.log("this is happening")
         }
     }
 }
@@ -170,11 +172,14 @@ function isLetter(str){
 function writeGuess(keypress){
     if (lettersGussed.indexOf(keypress) !== -1){
         writeToScreen(boardState.alreadyGussed);
-        return;
+        playSound(sound.repeat.src);
+        console.log("writeGuess already gussed")
+        return false;
     } else {
         lettersGussed.push(keypress);
         var gussedStr = lettersGussed.join(", ")
         document.getElementById('lettersGuessed').textContent = gussedStr.toLocaleUpperCase();
+        return true;
     }
 }
 // Joing hiddenArray items into a single string seperated by spaces and display to user
