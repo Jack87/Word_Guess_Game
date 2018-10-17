@@ -35,7 +35,10 @@ var sound = {
     },
     "losing" : {
       src : "assets/sounds/LoseGame_MotoCrashBurn.mp3"
-    }
+    },
+    "repeat" : {
+        src : "assets/sounds/RepeatLetter_MotoHorn.mp3"
+      }
   };
 // Boardstate messages
 var boardState = {
