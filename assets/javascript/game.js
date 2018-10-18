@@ -53,7 +53,8 @@ var boardState = {
     gotIt: "Great you got that one! Guess another letter.",
     missedIt: "Oops Missed that one! Guess another letter.",
     gameOver: "Tank ran out of fuel; you crashed and burned. Press SPACEBAR to repair and fuel up for the next race.",
-    winGame: "CONGRADULATIONS!!! You won your race! Press SPACEBAR to fuel up and race again."
+    winGame: "CONGRADULATIONS!!! You won your race! Press SPACEBAR to fuel up and race again.",
+    alreadyMissed: "You tried that and missed already! Guess another letter."
     
 };
 // Score and tallies
@@ -119,13 +120,19 @@ document.onkeyup = function(event) {
                 fillSpaces(hiddenArray);  // Use fillSpaces to joing hiddenArray items into a single string and display to user
             }
         }
-        if (countInArray(hiddenArray, keypress) >= 1) { // If item hasn't been gussed before show got it message
+        if (countInArray(hiddenArray, keypress) >= 1) { // If item hasn't been guessed before show got it message
             writeToScreen(boardState.gotIt);
             if ((writeGuess(keypress))) {
                 playSound(sound.right.src);
             }
+    
         } 
+
     }
+    //  else if ((wordLettersArray[index] == hiddenArray[index]) && lettersGussed.indexOf(hiddenArray[index]) > -1) { // If letter has been gussed before (right or wrong) show already gussed message
+    // writeToScreen(boardState.alreadyGussed);
+    // console.log("this is happening")
+    // }
 
     else {
         console.log(guessesLeft);
@@ -137,10 +144,10 @@ document.onkeyup = function(event) {
             writeGuess(keypress);
             console.log("this");
         }
-        else if ((wordLettersArray[index] == hiddenArray[index]) && lettersGussed.indexOf(hiddenArray[index]) > -1) { // If letter has been gussed before (right or wrong) show already gussed message
-            writeToScreen(boardState.alreadyGussed);
-            console.log("this is happening")
+        else {
+            writeGuess(keypress);
         }
+
     }
 }
 
@@ -177,7 +184,7 @@ function writeGuess(keypress){
     if (lettersGussed.indexOf(keypress) !== -1){
         writeToScreen(boardState.alreadyGussed);
         playSound(sound.repeat.src);
-        console.log("writeGuess already gussed")
+        console.log("writeGuess already guessed")
         return false;
     } else {
         lettersGussed.push(keypress);
