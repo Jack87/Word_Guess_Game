@@ -222,3 +222,37 @@ function playSound(src){
     };
     document.body.appendChild(audio);
   }
+
+  // OSK Gen
+  $(document).ready(function() {
+    // Here we are provided an initial array of letters.
+    // Use this array to dynamically create buttons on the screen.
+    var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", " "];
+    for (var i = 0; i < letters.length - 1; i++) {
+        var letterBtn = $('<button>');
+        letterBtn.addClass("letter-button letter letter-button-color")
+            .attr("data-letter", letters[i])
+            .text(letters[i]);
+        $("#buttons").append(letterBtn);
+    }
+    var letterBtn = $('<button>');
+    letterBtn.addClass("letter-button letter letter-button-color")
+        .attr("data-letter", letters[letters.length])
+        .text("SPACEBAR");
+    $("#buttons").append(letterBtn);
+    $(".letter-button").on("click", function() {
+    var fridgeMagnet = $('<div>');
+        for (var i = 0; i < letters.length; i++) {
+            fridgeMagnet.addClass("letter fridge-color")
+            .text($(this)
+            .attr("data-letter"))
+            $("#display").append(fridgeMagnet);
+        }
+    console.log(fridgeMagnet);
+    });
+        $("#clear").on("click", function() {
+            var fridgeMagnet = $('#display');
+            fridgeMagnet.empty();
+        });
+    });
+    
