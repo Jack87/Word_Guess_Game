@@ -107,14 +107,13 @@ document.onkeyup = function(event) {
         };
     }
     else {
-        console.log(guessesLeft);
+        // console.log(guessesLeft);
         if ((lettersGussed.indexOf(keypress) == -1) && (guessesLeft > 0)) {
             guessesLeft--;
             writeGussesLeft(guessesLeft);
             writeToScreen(boardState.missedIt);
             playSound(sound.wrong.src);
             writeGuess(keypress);
-            console.log("this");
         }
         else {
             writeGuess(keypress);
@@ -144,7 +143,7 @@ function nextGame() {
     writeGussesLeft(guessesLeft);
     writeWins(wins);
     selectRandomWord(wordList);
-    console.log(wordString);
+    // console.log(wordString);
 };
 // Select a word randomly from word list array
 function selectRandomWord(wordArray) {
@@ -186,7 +185,7 @@ function writeGuess(keypress){
         writeToScreen(boardState.winGame);
         playSound(sound.winning.src);
         writeIt(keypress);
-        console.log(wins);     
+        // console.log(wins);     
     }
     else if ((guessesLeft == 0) && state.active) {
         state.active = false;
@@ -200,12 +199,12 @@ function writeGuess(keypress){
     else if (lettersGussed.indexOf(keypress) !== -1){
         writeToScreen(boardState.alreadyGussed);
         playSound(sound.repeat.src);
-        console.log("writeGuess already guessed")
+        // console.log("writeGuess already guessed")
         return false;
     }
     else {
         writeIt(keypress);
-        console.log(hiddenArray.indexOf("_"));
+        // console.log(hiddenArray.indexOf("_"));
         return true;
     };
 };
