@@ -54,7 +54,7 @@ var boardState = {
     gotIt: "Great you got that one! Guess another letter.",
     missedIt: "Oops Missed that one! Guess another letter.",
     gameOver: "Tank ran out of fuel; you crashed and burned. Press SPACEBAR to repair and fuel up for the next race.",
-    winGame: "CONGRADULATIONS!!! You won your race! Press SPACEBAR to fuel up and race again.",
+    winGame: "CONGRATULATIONS!!! You won your race! Press SPACEBAR to fuel up and race again.",
     alreadyMissed: "You tried that and missed already! Guess another letter."
     
 };
