@@ -49,7 +49,8 @@ var boardState = {
     notSpacebar: "That is not Spacebar; try again!",
     pressToGo: "Guess any letter key to GO!",
     notALetter: "That is not a letter. Try again.",
-    alreadyGussed: "You already had that one! Guess another letter.",
+    // alreadyGussed: "You already had that one! Guess another letter.",
+    alreadyGussed: "You already tried that one! Guess another letter.",
     gotIt: "Great you got that one! Guess another letter.",
     missedIt: "Oops Missed that one! Guess another letter.",
     gameOver: "Tank ran out of fuel; you crashed and burned. Press SPACEBAR to repair and fuel up for the next race.",
@@ -84,11 +85,17 @@ function writeWins(win) {
     document.getElementById('winCount').textContent = wins;
 }
 function nextGame() {
+    hiddenArray = [];
+    hiddenWord = "";
+    guessesLeft = 10;
+    lettersGussed = [];
+    document.getElementById('lettersGuessed').textContent = "";
     writeToScreen(boardState.pressToGo);
     writeGussesLeft(guessesLeft);
     writeWins(wins);
     selectRandomWord(wordList);
     console.log(wordString);
+
 }
 console.log("state active: " + state.active);
 document.onkeyup = function(event) { 
@@ -100,6 +107,7 @@ document.onkeyup = function(event) {
         return;
     } else if (!(state.active)) {
             state.active = true;
+            state.gameOver = false;
             nextGame();
             console.log("state active: " + state.active);
             playSound(sound.start.src);
@@ -181,21 +189,40 @@ function isLetter(str){
 }
 // Hold already gussed letters
 function writeGuess(keypress){
-    if (lettersGussed.indexOf(keypress) !== -1){
-        writeToScreen(boardState.alreadyGussed);
-        playSound(sound.repeat.src);
-        return false;
-    }
-    // else if (((lettersGussed.indexOf(_) == -1)) && (state.active)) {
-    //     wins++;
-    //     state.active = false;
-    //     playSound(sound.winning.src);
-    //     nextGame();        
-    // }
-    else {
+    function writeIt(keypress) {
         lettersGussed.push(keypress);
         var gussedStr = lettersGussed.join(", ")
         document.getElementById('lettersGuessed').textContent = gussedStr.toLocaleUpperCase();
+    }
+    if (((hiddenArray.indexOf('_') == -1)) && (state.active)) {
+        wins++;
+        state.active = false;
+        state.gameOver = true;
+        writeWins(wins);
+        writeToScreen(boardState.winGame);
+        playSound(sound.winning.src);
+        writeIt(keypress);
+        console.log(wins);     
+    }
+    else if ((guessesLeft == 0) && state.active) {
+        state.active = false;
+        state.gameOver = true;
+        writeToScreen(boardState.gameOver);
+        playSound(sound.losing.src);
+        writeIt(keypress);
+        guessesLeft = "";
+        writeGussesLeft(guessesLeft);
+    }
+    else if (lettersGussed.indexOf(keypress) !== -1){
+        writeToScreen(boardState.alreadyGussed);
+        playSound(sound.repeat.src);
+        console.log("writeGuess already guessed")
+        return false;
+    }
+
+    else {
+        writeIt(keypress);
+        console.log(hiddenArray.indexOf("_"));
         return true;
     }
     
@@ -230,7 +257,7 @@ function playSound(src){
     document.body.appendChild(audio);
   }
 
-  // OSK Gen Work in progress
+  // OSK Gen
 //   $(document).ready(function() {
 //     // Here we are provided an initial array of letters.
 //     // Use this array to dynamically create buttons on the screen.

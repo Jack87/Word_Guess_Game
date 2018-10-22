@@ -6,6 +6,13 @@
 }
 body {
 background-image: url("../images/track.jpg");
+/* width: 960px; */
+/* text-align: left; */
+}
+.main-container{
+
+}
+.guessTrack {
 }
 .jumbotron {
     background: rgba(204, 204, 204, 0.5);
@@ -49,10 +56,10 @@ background-image: url("../images/track.jpg");
 }
 
 /* Title */
-
+/* 
 @import url('//fonts.googleapis.com/css?family=Pacifico&text=Pure');
 @import url('//fonts.googleapis.com/css?family=Roboto:700&text=css');
-@import url('//fonts.googleapis.com/css?family=Kaushan+Script&text=!');
+@import url('//fonts.googleapis.com/css?family=Kaushan+Script&text=!'); */
 
 /* body { 
   min-height: 450px;
@@ -60,7 +67,7 @@ background-image: url("../images/track.jpg");
   margin: 0;
   background: radial-gradient(circle, darken(dodgerblue, 10%), #1f4f96, #1b2949, #000);
 } */
-
+/* 
 .stage {
   height: 150px;
   width: 250px;
@@ -105,5 +112,5 @@ background-image: url("../images/track.jpg");
 
 @keyframes ಠ_ಠ {
   100% { transform: rotateY(-48deg) rotateX(70deg); }
-}
+} */
 
