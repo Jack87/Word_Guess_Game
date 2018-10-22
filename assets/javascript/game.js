@@ -3,15 +3,22 @@
 var wordList = [
     "Aprilia",
     "BMW",
+    "Buell",
     "Ducati",
     "Harley",
     "Honda",
+    "Husqvarna",
+    "Hyosung",
+    "Indian",
     "Kawasaki",
     "KTM",
     "Suzuki",
     "Triumph",
+    "Ural",
+    "Vespa",
     "Victory",
-    "Yamaha"
+    "Yamaha",
+    "Zero"
 ];
 var wordString = "";
 var wordLettersArray = [];
