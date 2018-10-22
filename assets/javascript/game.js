@@ -1,7 +1,3 @@
-// window.onload = function() {
-//     initialize();
-//   };
-// function initialize() {
 // Variables
 // Word List
 var wordList = [
@@ -56,7 +52,6 @@ var boardState = {
     gameOver: "Tank ran out of fuel; you crashed and burned. Press SPACEBAR to repair and fuel up for the next race.",
     winGame: "CONGRATULATIONS!!! You won your race! Press SPACEBAR to fuel up and race again.",
     alreadyMissed: "You tried that and missed already! Guess another letter."
-    
 };
 // Score and tallies
 var state = {
@@ -72,32 +67,7 @@ var keypress = "";
 var hiddenArray = [];
 var hiddenWord = "";
 writeToScreen(boardState.pressToStart);
-// };
-//    playSound(sound.start.url);
-// Functions for displaying content to user
-function writeToScreen(boardState) {
-    document.getElementById('messageBoard').textContent = boardState;
-}
-function writeGussesLeft(guess) {
-    document.getElementById('guessCount').textContent = guessesLeft + "0%";
-}
-function writeWins(win) {
-    document.getElementById('winCount').textContent = wins;
-}
-function nextGame() {
-    hiddenArray = [];
-    hiddenWord = "";
-    guessesLeft = 10;
-    lettersGussed = [];
-    document.getElementById('lettersGuessed').textContent = "";
-    writeToScreen(boardState.pressToGo);
-    writeGussesLeft(guessesLeft);
-    writeWins(wins);
-    selectRandomWord(wordList);
-    console.log(wordString);
-
-}
-console.log("state active: " + state.active);
+// console.log("state active: " + state.active);
 document.onkeyup = function(event) { 
     keypress = event.key ;
     // Checking user inputs and activating gameplay
@@ -105,18 +75,19 @@ document.onkeyup = function(event) {
         writeToScreen(boardState.notSpacebar);
         playSound(sound.error.src);
         return;
-    } else if (!(state.active)) {
+    } 
+    else if (!(state.active)) {
             state.active = true;
             state.gameOver = false;
             nextGame();
-            console.log("state active: " + state.active);
+            // console.log("state active: " + state.active);
             playSound(sound.start.src);
             return;
-    } 
-    else if (!(isLetter(keypress))){
+    }
+    else if (!(isLetter(keypress))) {
         writeToScreen(boardState.notALetter);
         playSound(sound.error.src);
-        console.log(keypress);
+        // console.log(keypress);
         return;
     }
     if (wordLettersArray.indexOf(keypress) !== -1) { // If letter exists in the wordLettersArray continue
@@ -126,22 +97,15 @@ document.onkeyup = function(event) {
             if (wordLettersArray[i] == keypress) { // When match is found replace the corresponding index item in hiddenArray
                 hiddenArray[i] = keypress;
                 fillSpaces(hiddenArray);  // Use fillSpaces to joing hiddenArray items into a single string and display to user
-            }
-        }
+            };
+        };
         if (countInArray(hiddenArray, keypress) >= 1) { // If item hasn't been guessed before show got it message
             writeToScreen(boardState.gotIt);
             if ((writeGuess(keypress))) {
                 playSound(sound.right.src);
-            }
-    
-        } 
-
+            };
+        };
     }
-    //  else if ((wordLettersArray[index] == hiddenArray[index]) && lettersGussed.indexOf(hiddenArray[index]) > -1) { // If letter has been gussed before (right or wrong) show already gussed message
-    // writeToScreen(boardState.alreadyGussed);
-    // console.log("this is happening")
-    // }
-
     else {
         console.log(guessesLeft);
         if ((lettersGussed.indexOf(keypress) == -1) && (guessesLeft > 0)) {
@@ -154,14 +118,34 @@ document.onkeyup = function(event) {
         }
         else {
             writeGuess(keypress);
-        }
+        };
 
-    }
-}
-
+    };
+};
 // Functions
+// Functions for displaying content to user
+function writeToScreen(boardState) { // Write message on jumbotron
+    document.getElementById('messageBoard').textContent = boardState;
+};
+function writeGussesLeft(guess) { // Display guess remainder (fuel)
+    document.getElementById('guessCount').textContent = guessesLeft + "0%";
+};
+function writeWins(win) { // Display number of wins
+    document.getElementById('winCount').textContent = wins;
+};
 // Setup and start gameboard
-
+function nextGame() {
+    hiddenArray = [];
+    hiddenWord = "";
+    guessesLeft = 10;
+    lettersGussed = [];
+    document.getElementById('lettersGuessed').textContent = "";
+    writeToScreen(boardState.pressToGo);
+    writeGussesLeft(guessesLeft);
+    writeWins(wins);
+    selectRandomWord(wordList);
+    console.log(wordString);
+};
 // Select a word randomly from word list array
 function selectRandomWord(wordArray) {
     var selectedWord = Math.floor(((Math.random()) * wordArray.length));
@@ -169,31 +153,31 @@ function selectRandomWord(wordArray) {
     word2Array(wordString);
     blankSpaces(wordLettersArray);
     return wordString;
-}
+};
 //Convert randomly selected word to array of letters
 function word2Array(motoBrand) {
     wordLettersArray = motoBrand.split("");
     return wordLettersArray;
-}
+};
 // Put down placeholders for word on the gameboard
 function blankSpaces(lettersArray) {
     for (i = 0; i < lettersArray.length; i++) {
         hiddenArray.push("_");
         fillSpaces (hiddenArray);
-    } 
-}
+    }; 
+};
 // Check if input is a letter
 function isLetter(str){
     str = str.toLowerCase();
     return str.length === 1 && str.match(/[a-z]/i);
-}
-// Hold already gussed letters
+};
+// Create list of gussed letters and check if won or lost
 function writeGuess(keypress){
-    function writeIt(keypress) {
+    function writeIt(keypress) { // Record the keypress on screen 
         lettersGussed.push(keypress);
         var gussedStr = lettersGussed.join(", ")
         document.getElementById('lettersGuessed').textContent = gussedStr.toLocaleUpperCase();
-    }
+    };
     if (((hiddenArray.indexOf('_') == -1)) && (state.active)) {
         wins++;
         state.active = false;
@@ -219,43 +203,41 @@ function writeGuess(keypress){
         console.log("writeGuess already guessed")
         return false;
     }
-
     else {
         writeIt(keypress);
         console.log(hiddenArray.indexOf("_"));
         return true;
-    }
-    
-}
+    };
+};
 // Joing hiddenArray items into a single string seperated by spaces and display to user
 function fillSpaces(hiddenArray) {
     hiddenWord = hiddenArray.join(" ");
     document.getElementById('hiddenWord').textContent = hiddenWord.toLocaleUpperCase();
-}
-// check if item shows up more than once
+};
+// Check if item shows up more than once
 function countInArray(array, letter) {
     var count = 0;
     for (var i = 0; i < array.length; i++) {localStorage
         if (array[i] === letter) {
             count++;
-        }
-    }
-    console.log("countInArray is: " + count );
+        };
+    };
+    // console.log("countInArray is: " + count );
     return count;
-}
+};
 // Play game sounds
 function playSound(src){
     var audio = document.createElement('audio');
     audio.style.display = "none";
     audio.src = src;
     // audio.autoplay = true;
-    console.log(audio)
-    audio.play()
+    // console.log(audio);
+    audio.play();
     audio.onended = function(){
-      audio.remove() //Remove when played.
+      audio.remove(); //Remove when played.
     };
     document.body.appendChild(audio);
-  }
+};
 
   // OSK Gen
 //   $(document).ready(function() {

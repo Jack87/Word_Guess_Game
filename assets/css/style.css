@@ -10,7 +10,7 @@ background-image: url("../images/track.jpg");
 /* text-align: left; */
 }
 .main-container{
-
+    font-size: 24px;
 }
 .guessTrack {
 }
