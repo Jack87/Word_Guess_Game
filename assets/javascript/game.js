@@ -245,7 +245,7 @@ function playSound(src){
     document.body.appendChild(audio);
 };
 
-  // OSK Gen
+  // OSK Gen Not used yet. For future to allow for mobile play
 //   $(document).ready(function() {
 //     // Here we are provided an initial array of letters.
 //     // Use this array to dynamically create buttons on the screen.
@@ -279,4 +279,3 @@ function playSound(src){
 //             fridgeMagnet.empty();
 //         });
 //     });
-    
